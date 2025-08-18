@@ -8,7 +8,7 @@ This directory contains all code for the GBQR model, data cleaning, generating s
         - Compute areas (st_area), densities, pop_ratio, and log_density_hsa.
         - Outputs
             - `data/us_hsa_county_popdesc.csv` — population/urban-density descriptors by state, HSA, and county.
-            - `data/us_map_pop_sf.rds` — sf object that includes state, HSA, and county geometries. 
+            - `data/us_map_pop_sf.rds` — sf object that includes state, HSA, and county geometries. Not committed due to size; recreate locally with the R script.
 - GBQR 
     - for state level fitting : run GBM_US_NSSP_public_state_pct.ipynb
     - for HSA level fitting : run GBM_US_NSSP_public_multiCouny_pct_retro_500K.ipynb
