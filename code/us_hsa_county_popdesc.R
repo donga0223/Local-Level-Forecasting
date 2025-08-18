@@ -30,8 +30,10 @@ county_pop <- get_acs(
   ) %>%
   select(fips = GEOID, county, state, population = B01003_001E)
 
-####### Note!############################
-## CT county fips changed at 2022, so CT state, we are using the 2021 data.
+######### Note!! #################################
+### Since Connecticut’s FIPS changed in 2022, 
+### we continue using the old county FIPS to stay consistent with the NSSP data.
+##################################################################
 
 county_pop_CT <- get_acs(
   geography = "county",
@@ -119,6 +121,9 @@ us_counties <- us_counties %>%
   filter(STATE_NAME != "Connecticut") %>%
   bind_rows(us_counties_CT)
 
+#saveRDS(us_states,   file = "Local-Level-Forecasting/data/us_states_2023_sf.rds")
+#saveRDS(us_counties, file = "Local-Level-Forecasting/data/us_counties_2023_sf.rds")
+
 
 ##########################################################
 ## State and HSA density
@@ -175,4 +180,43 @@ state_hsa_county_pop_urban_density1 <- state_hsa_county_pop_urban_density %>%
   mutate(log_density_hsa = log(density_hsa))
 
 write.csv(state_hsa_county_pop_urban_density1, "Local-Level-Forecasting/data/us_hsa_county_popdesc.csv", row.names = FALSE)
+
+
+### include state, hsa, and county level geometry
+us_map_pop <- state_hsa_county_pop_urban_density1 %>%
+  left_join(us_states %>%
+              select(state = NAME, geometry), by = "state")
+
+colSums(is.na(us_map_pop))
+
+us_hsa <- us_counties %>%
+  select(state = STATE_NAME, fips = GEOID, geometry) %>%
+  inner_join(state_hsa_county_pop_urban_density1 %>% 
+               select(state, fips, hsa_nci_id) %>% distinct(),
+             by = c("state", "fips")) %>%
+  group_by(state, hsa_nci_id) %>%
+  summarise(geometry = st_union(geometry), .groups = "drop")
+
+
+
+us_map_pop1 <- us_map_pop %>%
+  left_join(us_hsa, by = c("state", "hsa_nci_id"),
+            suffix = c("", "_hsa"))
+
+us_map_pop2 <- us_map_pop1 %>%
+  left_join(us_counties %>%
+              select(state = STATE_NAME, fips = GEOID, county = NAME, geometry), 
+            by = c("state", "fips", "county"),
+            suffix = c("", "_county"))
+
+
+saveRDS(us_map_pop2,   file = "Local-Level-Forecasting/data/us_map_pop_sf.rds")
+
+
+
+
+
+
+
+
 
