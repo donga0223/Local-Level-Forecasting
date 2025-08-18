@@ -2,6 +2,7 @@ library(tidycensus)
 library(dplyr)
 library(tidyr)
 library(stringr)
+library(sf)
  
 
 ##########################################################
@@ -121,8 +122,8 @@ us_counties <- us_counties %>%
   filter(STATE_NAME != "Connecticut") %>%
   bind_rows(us_counties_CT)
 
-#saveRDS(us_states,   file = "Local-Level-Forecasting/data/us_states_2023_sf.rds")
-#saveRDS(us_counties, file = "Local-Level-Forecasting/data/us_counties_2023_sf.rds")
+#saveRDS(us_states,   file = "Local-Level-Forecasting/data/us_states.rds")
+#saveRDS(us_counties, file = "Local-Level-Forecasting/data/us_counties.rds")
 
 
 ##########################################################
