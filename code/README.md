@@ -4,5 +4,9 @@ This directory contains all code for the GBQR model, generating summary figures,
 - GBQR 
     - for state level fitting : run GBM_US_NSSP_public_state_pct.ipynb
     - for HSA level fitting : run GBM_US_NSSP_public_multiCouny_pct_retro_500K.ipynb
+    - Supporting files for model fitting:
+        - loader.py
+        - preprocess_and_plot.py
+        - forecast_model.py
 - summary figures
 - calculate metrics 
