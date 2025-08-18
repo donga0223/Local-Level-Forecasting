@@ -29,5 +29,5 @@ You can obtain the data in two ways:
    - State–County mapping
    - FIPS codes
 
-   The dataset has also been uploaded to this folder as an `.xls` file and is available for download.
+   The dataset has also been uploaded to this folder as an `Health.Service.Areas.xls` file and is available for download.
    
