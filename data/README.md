@@ -28,4 +28,6 @@ You can obtain the data in two ways:
    - HSA Description
    - State–County mapping
    - FIPS codes
+
+   I also uploaded the corresponding `Health.Service.Areas.xls` file to this folder, which you can download from [here](https://github.com/donga0223/Local-Level-Forecasting/blob/main/data/Health.Service.Areas.xls).
    
