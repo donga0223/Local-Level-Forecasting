@@ -20,3 +20,12 @@ You can obtain the data in two ways:
      geo_values = "sc",
      time_type = "week"
    )
+
+
+# Health Service Areas (HSA)
+   The HSA data were downloaded from [SEER](https://seer.cancer.gov/seerstat/variables/countyattribs/hsa.html). The dataset includes:
+   - HSA ID (numeric code)
+   - HSA Description
+   - State–County mapping
+   - FIPS codes
+   
