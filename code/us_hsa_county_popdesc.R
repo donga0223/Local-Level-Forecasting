@@ -176,36 +176,3 @@ state_hsa_county_pop_urban_density1 <- state_hsa_county_pop_urban_density %>%
 
 write.csv(state_hsa_county_pop_urban_density1, "Local-Level-Forecasting/data/us_hsa_county_popdesc.csv", row.names = FALSE)
 
-
-us_map_pop <- state_hsa_county_pop_urban_density1 %>%
-  left_join(us_states %>%
-              select(state = NAME, geometry), by = "state")
-
-colSums(is.na(us_map_pop))
-
-us_hsa <- us_counties %>%
-  select(state = STATE_NAME, fips = GEOID, geometry) %>%
-  inner_join(state_hsa_county_pop_urban_density1 %>% 
-               select(state, fips, hsa_nci_id) %>% distinct(),
-             by = c("state", "fips")) %>%
-  group_by(state, hsa_nci_id) %>%
-  summarise(geometry = st_union(geometry), .groups = "drop")
-
- 
-
-us_map_pop1 <- us_map_pop %>%
-  left_join(us_hsa, by = c("state", "hsa_nci_id"),
-            suffix = c("", "_hsa"))
-
-us_map_pop2 <- us_map_pop1 %>%
-  left_join(us_counties %>%
-              select(state = STATE_NAME, fips = GEOID, county = NAME, geometry), 
-            by = c("state", "fips", "county"),
-            suffix = c("", "_county"))
-
-
-
-
-
-
-
