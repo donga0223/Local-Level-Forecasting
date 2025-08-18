@@ -29,5 +29,5 @@ You can obtain the data in two ways:
    - State–County mapping
    - FIPS codes
 
-   I also uploaded the corresponding `Health.Service.Areas.xls` file to this folder, which you can download from [here](https://github.com/donga0223/Local-Level-Forecasting/blob/main/data/Health.Service.Areas.xls).
+   The dataset has also been uploaded to this folder as an `.xls` file and is available for download.
    
