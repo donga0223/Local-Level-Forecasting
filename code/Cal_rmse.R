@@ -1,3 +1,14 @@
+###########################################################################
+## Load nssp data 
+## create df_all : "week_end", "state", "hsa_nci_id", "population_hsa", "inc_hsa",
+##                 "epi_week_hsa", "epi_year", "season_week", "season", "inc_state",
+##                 "epi_week_state", "included" 
+## create peak_all : "season", "state", "hsa_nci_id", "population_hsa", "week_end_hsa",
+##                   "season_week_hsa", "inc_hsa", "week_end_state", "season_week_state",
+##                   "inc_state", "RMSE_overall", "MAE_overall", "included", "RMSE_season",
+##                   "MAE_season", "diff_peak_week", "diff_peak_magnitude", 
+##                   "rel_diff_peak_magnitude"
+###########################################################################
 
 library(dplyr)
 library(stringr)
@@ -127,7 +138,6 @@ df_all_season_rmse <- compute_pairwise_rmse_byseason(df_all)
 
 
 
-##### Figure 1
 df_all_season_rmse_inc <- df_all_season_rmse %>% 
   mutate(included = ifelse(population_hsa >= 250000, "Included", "Excluded")) %>%
   mutate(included = ifelse(is.na(included), "Excluded", included)) %>%
