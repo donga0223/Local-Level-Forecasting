@@ -3,6 +3,7 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 library(sf)
+library(readxl)
  
 
 ##########################################################
@@ -59,8 +60,28 @@ state_county_pop <- county_pop %>%
   full_join(state_pop, by = "state", suffix = c("_county", "_state"))
 
 
+#hsa <- read.csv("Local-Level-Forecasting/data/Health.Service.Areas.xls")
+hsa <- readxl::read_xls("Local-Level-Forecasting/data/Health.Service.Areas.xls") 
+#View(hsa %>% filter(str_detect(`State-county`, "^VA:")))
+
+hsa <- hsa %>%
+  mutate(`State-county` = str_remove(`State-county`, "\\s*\\(\\d+\\)$")) %>%
+  tidyr::extract(`State-county`,
+    into = c("state_abbr", "county_name"),
+    regex = "^([A-Z]{2}):\\s*(.*)$" )
+names(hsa) <- c("hsa_nci_id", "HSA Description", "state_abbr", "county_name", "fips")
+
+n_hsa <- hsa %>%
+  group_by(state_abbr) %>%
+  summarise(
+    n_hsa = n_distinct(hsa_nci_id, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
+
 state_hsa_county <- state_county_pop %>%
-  left_join(hsa, by = "fips") 
+  left_join(hsa, by = c("fips")) 
 
 hsa_pop <- state_hsa_county %>%
   group_by(state, hsa_nci_id) %>%
@@ -79,12 +100,12 @@ state_hsa_county_pop %>% filter(is.na(hsa_nci_id))
 urban_sf1 <- get_decennial(
   geography = "county",
   variables = c(
-    total = "P1_001N",   # Total population
-    urban = "P2_002N",   # Urban population
-    rural = "P2_005N"    # Rural population
+    total = "P2_001N",   # Total
+    urban = "P2_002N",   # Urban
+    rural = "P2_003N"    # Rural
   ),
   year    = 2020,
-  sumfile = "pl"
+  dataset = "dhc"        # 중요! (구버전: sumfile = "dhc")
 )
 
 
@@ -102,6 +123,8 @@ head(urban_pct)
 state_hsa_county_pop_urban <- state_hsa_county_pop %>% 
   left_join(urban_pct, by = "hsa_nci_id") 
 
+state_hsa_county_pop_urban <- state_hsa_county_pop_urban %>%
+  left_join(n_hsa, by = c("state_abbr"))
 
 ##########################################################
 ## Load sf data
@@ -175,10 +198,9 @@ state_hsa_county_pop_urban_density <- state_hsa_county_pop_urban %>%
 
 
 state_hsa_county_pop_urban_density1 <- state_hsa_county_pop_urban_density %>%
-  dplyr::select(-`State-county`, -hsa_counties) %>%
+  dplyr::select(-`HSA Description`, state_abbr, -county_name) %>%
   filter(!is.na(hsa_nci_id)) %>%
-  mutate(pop_ratio = population_hsa/population_state) %>%
-  mutate(log_density_hsa = log(density_hsa))
+  mutate(pop_ratio = population_hsa/population_state) 
 
 write.csv(state_hsa_county_pop_urban_density1, "Local-Level-Forecasting/data/us_hsa_county_popdesc.csv", row.names = FALSE)
 
