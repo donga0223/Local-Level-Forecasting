@@ -13,6 +13,7 @@ This directory contains all code for the GBQR model, data cleaning, generating s
       - Compute WIS and generate forecast summary figures by horizon for a single season.
       - Outputs
         - `forecasting_metrics_3seasons.csv` 
+        
     -`Cal_rmse.R`
       - Compute RMSE between state vs HSA for % ED visits due to influenza.
       - Add peak timing and peak magnitude for both HSA- and state-level forecasts, and compute their differences.
