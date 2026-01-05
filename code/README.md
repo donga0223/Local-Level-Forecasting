@@ -9,14 +9,14 @@ This directory contains all code for the GBQR model, data cleaning, generating s
         - Outputs
             - `data/us_hsa_county_popdesc.csv` — population/urban-density descriptors by state, HSA, and county.
             - `data/us_map_pop_sf.rds` — sf object that includes state, HSA, and county geometries. Not committed due to size; recreate locally with the R script.
-- [Forecasts](../Forecasts/)
+- [Forecasts](code/Forecasts/)
     - for state level fitting : run GBQR_US_NSSP_state.ipynb
     - for HSA level fitting : run GBQR_US_NSSP_HSA.ipynb
     - Supporting files for model fitting:
         - loader.py
         - preprocess_and_plot.py
         - forecast_model.py
-- [Analysis](../Analysis/)
+- [Analysis](code/Analysis/)
   - contains all code used to fit models to diff_WIS, as well as the corresponding result figures.
 - summary figures
 - calculate metrics 
