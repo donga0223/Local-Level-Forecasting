@@ -13,10 +13,20 @@ You can obtain the data in two ways:
    You can download the data directly using the **`epidatr`** package:
 
    ```r
+   ## state level data 
    epidatr::pub_covidcast(
      source    = "nssp",
      signals   = "pct_ed_visits_influenza",
      geo_type  = "state",
+     geo_values = "sc",
+     time_type = "week"
+   )
+   
+   ## HSA level data 
+   epidatr::pub_covidcast(
+     source    = "nssp",
+     signals   = "pct_ed_visits_influenza",
+     geo_type = "hsa_nci",
      geo_values = "sc",
      time_type = "week"
    )
