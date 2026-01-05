@@ -1,6 +1,9 @@
 # Local-Level-Forecasting
 
-Local level forecasting using GBQR(Gradient Boosting Quantile Regression).
+This repository accompanies the paper Kim, D., et al. (2026+), Local Influenza Forecasts Outperform State-Level Forecasts in the United States.
+The paper compares the performance of local-level influenza forecasting models with state-level forecasting models across the United States.
+This repository contains all code used to fit the forecasting models, conduct analyses, and generate the figures presented in the paper.
+All analyses rely exclusively on publicly available data.
 
 ## Repository organization
 
