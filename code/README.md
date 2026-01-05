@@ -9,11 +9,12 @@ This directory contains all code for the GBQR model, data cleaning, generating s
         - Outputs
             - `data/us_hsa_county_popdesc.csv` — population/urban-density descriptors by state, HSA, and county.
             - `data/us_map_pop_sf.rds` — sf object that includes state, HSA, and county geometries. Not committed due to size; recreate locally with the R script.
+- Summary figures
     - `GBQR_forecasting_plot.R`
       - Compute WIS and generate forecast summary figures by horizon for a single season.
       - Outputs
         - `forecasting_metrics_3seasons.csv` 
-        
+- Calculate metrics         
     - `Cal_rmse.R`
       - Compute RMSE between state vs HSA for % ED visits due to influenza.
       - Add peak timing and peak magnitude for both HSA- and state-level forecasts, and compute their differences.
@@ -30,6 +31,6 @@ This directory contains all code for the GBQR model, data cleaning, generating s
         - forecast_model.py
 - [Analysis](Analysis/)
   - contains all code used to fit models to diff_WIS, as well as the corresponding result figures.
-- summary figures
-- calculate metrics 
+
+
 
