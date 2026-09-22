@@ -194,7 +194,7 @@ RMSE_usmap <- function(df_conus, us_map, fill_var){
       legend.text  = element_text(size = 15),
     ) +
     scale_fill_viridis_c(option = "magma", direction = -1,na.value = "white",
-                         name = "overall RMSE")
+                         name = "RMSE")
   
   ggsave(paste0("paper_figures/overall_RMSE_USmap.png"),
          p3, width = 10, height = 5, dpi = 300)
@@ -224,13 +224,13 @@ NSSP_available_list_add2 <- NSSP_available_list_add %>%
   mutate(
     fill_cat = case_when(
       is.na(available_nssp)      ~ "Not available",
-      available_nssp == 105      ~ "Not available (since 2024-09-22)",
+      available_nssp == 105      ~ "Not available",
       available_nssp %in% c(172) ~ "Available",   # 혹시 176이면 같이 처리
       TRUE                          ~ "Not available"     # 안전장치
     ),
     fill_cat = factor(
       fill_cat,
-      levels = c("Available", "Not available\n(since 2024-09-22)" , "Not available")
+      levels = c("Available", "Not available")
     )
   )
 
@@ -241,11 +241,11 @@ p3 <- ggplot() +
     color = "gray20"
   ) +
   geom_sf(
-    data = sf::st_set_geometry(sf::st_as_sf(us_map), "geometry"),
+    data = sf::st_set_geometry(sf::st_as_sf(us_map1), "geometry"),
     fill = NA, color = "grey20", linewidth = 0.25
   ) +
   geom_sf(
-    data = sf::st_set_geometry(sf::st_as_sf(us_map), "geometry_hsa"),
+    data = sf::st_set_geometry(sf::st_as_sf(us_map1), "geometry_hsa"),
     fill = NA, color = "gray20"
   ) +
   coord_sf() +
@@ -258,7 +258,7 @@ p3 <- ggplot() +
     name = "NSSP data",
     values = c(
       "Available"                       = "#3182bd", # 진한 하늘색
-      "Not available\n(since 2024-09-22)"= "#9ecae1", # 흐린 하늘색
+      #"Not available\n(since 2024-09-22)"= "#9ecae1", # 흐린 하늘색
       "Not available"                   = "white"    # 흰색
     ),
     drop = FALSE
