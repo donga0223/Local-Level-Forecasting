@@ -11,3 +11,15 @@ This repository has the following directories:
 
 - `code/`: all code for GBQR forecasting and its component models, exploratory data analyses, and so on. See the readme in that folder for further information.
 - `data/`: raw data pulled from CDC NSSP. See the readme in that folder for further information.
+
+
+## Data Availability
+
+The original influenza emergency department visit data used in this study are publicly available from the CDC National Syndromic Surveillance Program (NSSP) through the [CDC NSSP Emergency Department Visits dataset](https://data.cdc.gov/Public-Health-Surveillance/NSSP-Emergency-Department-Visits-COVID-19-Flu-RSV-/7xva-uux8/about_data).
+
+Health Service Area (HSA) definitions and county-to-HSA assignments were obtained from the [National Cancer Institute's Surveillance, Epidemiology, and End Results (SEER) Program](https://seer.cancer.gov/seerstat/variables/countyattribs/hsa.html).
+
+The derived, analysis-ready datasets used in this study are available on Zenodo at **10.5281/zenodo.22903162**. These datasets include:
+
+- `forecasting_metrics_3seasons.csv`: forecast evaluation data for the 2022/23, 2023/24, and 2024/25 influenza seasons, including observed influenza emergency department visit percentages, forecast estimates, forecast horizons, coverage, errors, and weighted interval scores (WIS) for HSA- and state-level forecasts.
+- `hsa_urban_analysis_ready.csv`: HSA-level analysis-ready data used to examine associations between forecast performance differences and population and urbanization characteristics.
